@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Plasmex</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+:root {
+    --primary: #0a2540;
+    --secondary: #1a3a5c;
+    --accent: #c9a962;
+    --accent-light: #e5d4a1;
+    --text-light: #f8f9fa;
+    --text-muted: #6c757d;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: var(--primary); color: var(--text-light); line-height: 1.7; }
+
+nav {
+    background: var(--primary);
+    padding: 1rem 2rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+nav .container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+.logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--text-light); text-decoration: none; }
+.logo span { color: var(--accent); }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a { color: var(--text-light); text-decoration: none; font-size: 0.9rem; transition: color 0.3s; }
+.nav-links a:hover { color: var(--accent); }
+.nav-links a.active { color: var(--accent); }
+.nav-cta { background: var(--accent); color: var(--primary) !important; padding: 0.5rem 1.25rem; border-radius: 4px; font-weight: 600; }
+.mobile-menu-btn { display: none; background: none; border: none; color: var(--text-light); font-size: 2rem; cursor: pointer; padding: 0.5rem; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+section { padding: 6rem 0; }
+.section-header { text-align: center; max-width: 700px; margin: 0 auto 4rem; }
+.section-label { color: var(--accent); font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1rem; }
+.section-title { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--text-light); margin-bottom: 1rem; }
+.section-subtitle { color: var(--text-muted); font-size: 1.1rem; }
+
+.hero { min-height: 80vh; display: flex; align-items: center; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); position: relative; }
+.hero-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; text-align: center; padding: 8rem 2rem 4rem; }
+.hero h1 { font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--text-light); margin-bottom: 1rem; }
+.hero h1 span { color: var(--accent); }
+.hero p { color: var(--text-muted); font-size: 1.25rem; max-width: 600px; margin: 0 auto; }
+
+.intro { padding: 6rem 0; background: var(--primary); }
+.intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+.intro-content h2 { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--accent); margin-bottom: 1.5rem; }
+.intro-content p { color: var(--text-muted); margin-bottom: 1.5rem; }
+.intro-visual { display: flex; justify-content: center; align-items: center; }
+.highlight-box { background: rgba(201, 169, 98, 0.1); border: 1px solid var(--accent); border-radius: 8px; padding: 1.5rem; margin-top: 1.5rem; }
+.highlight-box p { color: var(--text-light); font-style: italic; }
+
+.process { padding: 6rem 0; background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%); }
+.process-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+.process-step { background: rgba(26, 58, 92, 0.5); border: 1px solid rgba(201, 169, 98, 0.3); border-radius: 8px; padding: 2rem; text-align: center; }
+.step-number { width: 50px; height: 50px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; margin: 0 auto 1rem; }
+.process-step h3 { font-family: 'Playfair Display', serif; color: var(--accent); margin-bottom: 0.75rem; }
+.process-step p { color: var(--text-muted); font-size: 0.9rem; }
+
+.how-it-works { padding: 6rem 0; background: var(--primary); }
+.mechanism-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+.mechanism-block { background: rgba(26, 58, 92, 0.5); border: 1px solid rgba(201, 169, 98, 0.3); border-radius: 8px; padding: 2rem; }
+.mechanism-block h3 { font-family: 'Playfair Display', serif; color: var(--accent); margin-bottom: 1rem; }
+.mechanism-block p { color: var(--text-muted); margin-bottom: 1rem; }
+
+.science { padding: 6rem 0; background: linear-gradient(180deg, var(--secondary) 0%, var(--primary) 100%); }
+.science-box { background: rgba(201, 169, 98, 0.1); border: 2px solid var(--accent); border-radius: 12px; padding: 3rem; text-align: center; }
+.science-box h2 { font-family: 'Playfair Display', serif; color: var(--accent); margin-bottom: 2rem; }
+.science-equation { display: flex; justify-content: center; align-items: center; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 2rem; }
+.equation-item { background: var(--secondary); border: 1px solid var(--accent); border-radius: 8px; padding: 1rem 1.5rem; }
+.equation-item .formula { color: var(--accent); font-size: 1.5rem; font-weight: 700; }
+.equation-item .label { color: var(--text-muted); font-size: 0.75rem; }
+.equation-arrow { font-size: 1.5rem; color: var(--accent); }
+.science-box > p { color: var(--text-muted); max-width: 700px; margin: 0 auto; }
+
+.benefits { padding: 6rem 0; background: var(--primary); }
+.benefits-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+.benefit-card { background: rgba(26, 58, 92, 0.5); border: 1px solid rgba(201, 169, 98, 0.3); border-radius: 8px; padding: 2rem; text-align: center; }
+.benefit-icon { width: 60px; height: 60px; background: rgba(201, 169, 98, 0.2); border: 2px solid var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 1rem; }
+.benefit-card h3 { font-family: 'Playfair Display', serif; color: var(--accent); margin-bottom: 0.75rem; }
+.benefit-card p { color: var(--text-muted); font-size: 0.9rem; }
+
+.cta { padding: 6rem 0; background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%); text-align: center; }
+.cta h2 { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--text-light); margin-bottom: 1rem; }
+.cta p { color: var(--text-muted); margin-bottom: 2rem; }
+.btn { display: inline-block; padding: 1rem 2.5rem; background: var(--accent); color: var(--primary); border-radius: 4px; font-weight: 600; text-decoration: none; transition: all 0.3s; }
+.btn:hover { background: var(--accent-light); transform: translateY(-2px); }
+
+footer { background: var(--primary); padding: 2rem 0; text-align: center; border-top: 1px solid rgba(201, 169, 98, 0.2); }
+footer p { opacity: 0.6; font-size: 0.875rem; }
+
+@media (max-width: 968px) {
+    .mobile-menu-btn { display: block; }
+    .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: var(--primary); flex-direction: column; border-top: 1px solid rgba(201, 169, 98, 0.3); }
+    .nav-links li { width: 100%; }
+    .nav-links a { display: block; padding: 1rem; text-align: center; border-bottom: 1px solid rgba(201, 169, 98, 0.1); }
+    .nav-links.active { display: flex; }
+    .hero h1 { font-size: 2rem; }
+    .intro-grid, .mechanism-grid, .about-grid, .contact-grid { grid-template-columns: 1fr; }
+    .services-grid, .benefits-grid, .values-grid, .process-steps { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+    .hero h1 { font-size: 1.75rem; }
+    .section-title { font-size: 1.5rem; }
+    .values-grid, .benefits-grid, .services-grid, .process-steps, .mechanism-grid { grid-template-columns: 1fr; }
+    .science-equation { flex-direction: column; }
+}
+
+    </style>
+
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <a href="index.html" class="logo">Plasm<span>ex</span></a>
+                        <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="technology.html">Technology</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html" class="">Get in Touch</a></li>
+            </ul>
+            <button class="mobile-menu-btn" id="menuToggle">☰</button>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <div class="section-label">Get in Touch</div>
+            <h1>Contact Us</h1>
+            <p class="subtitle">Ready to transform your vessel's exhaust system? Let's talk.</p>
+        </div>
+    </section>
+
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h2>Let's Discuss Your Project</h2>
+                    <p>Whether you're operating a private yacht or commercial vessel, we're here to help. Initial consultations are complimentary and there's no obligation.</p>
+                    
+                    <ul class="contact-methods">
+                        <li>
+                            <span class="icon">📧</span>
+                            <div class="info">
+                                <h4>Email</h4>
+                                <p>info@plasmex.com</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="icon">📱</span>
+                            <div class="info">
+                                <h4>Phone</h4>
+                                <p>+44 (0) 20 XXXX XXXX</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="icon">🌍</span>
+                            <div class="info">
+                                <h4>Service Area</h4>
+                                <p>Worldwide — Mobile installations available</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="icon">⏰</span>
+                            <div class="info">
+                                <h4>Response Time</h4>
+                                <p>Within 24 hours</p>
+                            </div>
+                        </li>
+                    </ul>
+            <button class="mobile-menu-btn" id="menuToggle">☰</button>
+                </div>
+
+                <div class="contact-form-container">
+                    <h2>Send a Message</h2>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Your Name *</label>
+                            <input type="text" id="name" name="name" required placeholder="Captain John Smith">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required placeholder="john@yacht.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" placeholder="+1 234 567 8900">
+                        </div>
+                        <div class="form-group">
+                            <label for="vessel">Vessel Type</label>
+                            <select id="vessel" name="vessel">
+                                <option value="">Select vessel type...</option>
+                                <option value="sailing">Sailing Yacht</option>
+                                <option value="motor">Motor Yacht</option>
+                                <option value="commercial">Commercial Vessel</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="loa">LOA (Length Overall)</label>
+                            <input type="text" id="loa" name="loa" placeholder="e.g., 45m or 150ft">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Your Message *</label>
+                            <textarea id="message" name="message" required placeholder="Tell us about your exhaust system requirements, current setup, or any questions you have..."></textarea>
+                        </div>
+                        <button type="submit" class="form-submit">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h4>How long does an installation take?</h4>
+                    <p>Installation time varies by vessel size and system complexity. A typical motor yacht installation takes 2-4 weeks. We'll provide a detailed timeline during consultation.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Do you work on sailing yachts?</h4>
+                    <p>Yes, we have extensive experience with both sailing and motor yachts. Each presents unique challenges that we've mastered over 13 years.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>What's included in the warranty?</h4>
+                    <p>Full parts and labor warranty on all installations. We also offer extended warranty and maintenance packages for ongoing peace of mind.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Can you help with certification?</h4>
+                    <p>Absolutely. We provide comprehensive support for IMO type approval and class certification, including documentation, testing, and survey preparation.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Where are you based?</h4>
+                    <p>We operate globally with mobile installation capabilities. Our base location allows us to serve the Mediterranean, Caribbean, and Northern Europe regions easily.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>What's the ROI on your systems?</h4>
+                    <p>Clients typically see fuel savings of 10-20% plus significant maintenance cost reductions. The payback period depends on usage but is often under 3 years.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 Plasmex. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = this.querySelector('.form-submit');
+            const originalText = btn.textContent;
+            btn.textContent = 'Sending...';
+            btn.disabled = true;
+            
+            // Simulate sending
+            setTimeout(() => {
+                btn.textContent = 'Message Sent!';
+                btn.style.background = '#4CAF50';
+                this.reset();
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = '';
+                    btn.disabled = false;
+                }, 3000);
+            }, 1500);
+        });
+
+        // Mobile menu toggle
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

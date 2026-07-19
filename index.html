@@ -1,22 +1,540 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Plasmoid Exhaust Systems</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Plasmex develops practical marine exhaust solutions around the Vajra." />
+  <title>Plasmex — Engineering You Don't Have to Think About</title>
   <style>
+    :root {
+      --ink: #0b1412;
+      --ink-2: #12211d;
+      --paper: #f7faf8;
+      --white: #ffffff;
+      --muted: #63716c;
+      --line: rgba(11, 20, 18, 0.12);
+      --green: #0f5f4b;
+      --green-bright: #1b8b6a;
+      --green-soft: #dff0e9;
+      --uv: #8d6cff;
+      --max: 1200px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
-      font-family: Arial;
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+
+    .shell { width: min(calc(100% - 40px), var(--max)); margin: 0 auto; }
+
+    .site-header {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 20;
+      background: rgba(247, 250, 248, 0.82);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(11, 20, 18, 0.08);
+    }
+
+    .nav {
+      height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      font-size: 18px;
+    }
+
+    .brand-mark {
+      width: 22px;
+      height: 22px;
+      border: 2px solid var(--green);
+      border-radius: 50%;
+      position: relative;
+    }
+
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      inset: 5px;
+      border: 1px solid var(--uv);
+      border-radius: 50%;
+      box-shadow: 0 0 14px rgba(141, 108, 255, 0.45);
+    }
+
+    .nav-links { display: flex; align-items: center; gap: 28px; font-size: 14px; }
+    .nav-links a { color: #2d3b36; }
+    .nav-links a:hover { color: var(--green); }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 20px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      font-size: 14px;
+      transition: 180ms ease;
+    }
+
+    .button.primary { background: var(--green); color: white; }
+    .button.primary:hover { transform: translateY(-2px); background: #0b4f3e; }
+    .button.secondary { border-color: var(--line); background: rgba(255,255,255,.55); }
+    .button.secondary:hover { border-color: var(--green); color: var(--green); }
+
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      align-items: center;
+      padding: 130px 0 70px;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 75% 30%, rgba(15,95,75,.13), transparent 30%),
+        radial-gradient(circle at 72% 34%, rgba(141,108,255,.08), transparent 18%),
+        linear-gradient(180deg, #fbfdfc, #f3f7f5);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 70px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--green);
+      margin-bottom: 18px;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+    h1 {
+      font-size: clamp(56px, 7vw, 104px);
+      line-height: .96;
+      letter-spacing: -0.065em;
+      max-width: 820px;
+      margin-bottom: 26px;
+    }
+
+    .hero-copy > p {
+      max-width: 660px;
+      font-size: clamp(18px, 2vw, 22px);
+      color: #40504a;
+      margin-bottom: 30px;
+    }
+
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+    .abstract-engine {
+      aspect-ratio: 1;
+      border-radius: 36px;
+      position: relative;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.78), rgba(224,234,229,.48)),
+        repeating-linear-gradient(90deg, transparent 0 44px, rgba(15,95,75,.035) 44px 45px);
+      border: 1px solid var(--line);
+      box-shadow: 0 30px 80px rgba(11,20,18,.11);
+      overflow: hidden;
+    }
+
+    .engine-line {
+      position: absolute;
+      height: 18px;
+      left: 10%;
+      right: 10%;
+      top: 50%;
+      transform: translateY(-50%);
+      background: linear-gradient(90deg, #aeb8b3, #e7ece9 36%, #b7c2bd 68%, #86928d);
+      border-radius: 999px;
+      box-shadow: inset 0 2px 2px rgba(255,255,255,.7), 0 10px 30px rgba(11,20,18,.12);
+    }
+
+    .engine-block {
+      position: absolute;
+      left: 12%;
+      top: 31%;
+      width: 32%;
+      height: 38%;
+      border-radius: 24px;
+      border: 1px solid rgba(11,20,18,.12);
+      background: linear-gradient(145deg, #dfe6e2, #9fa9a4);
+      box-shadow: inset -16px -16px 30px rgba(11,20,18,.08), inset 12px 12px 25px rgba(255,255,255,.65);
+    }
+
+    .vajra-symbol {
+      position: absolute;
+      right: 12%;
+      top: 18%;
+      width: 34%;
+      aspect-ratio: .56;
+    }
+
+    .sphere {
+      position: absolute;
+      left: 50%;
+      width: 74%;
+      aspect-ratio: 1;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: radial-gradient(circle at 34% 28%, #f9fbfa 0 5%, #cbd4d0 18%, #76817c 52%, #d7dfdb 72%, #66716c 100%);
+      box-shadow: 0 18px 32px rgba(11,20,18,.18), inset 0 0 0 1px rgba(255,255,255,.55);
+    }
+    .sphere.top { top: 0; }
+    .sphere.bottom { bottom: 0; }
+    .bridge {
+      position: absolute;
+      top: 42%;
+      bottom: 42%;
+      left: 40%;
+      right: 40%;
+      background: linear-gradient(90deg, #79847f, #e2e8e5 45%, #74807b);
+    }
+    .flow-glow {
+      position: absolute;
+      inset: 18% 27%;
+      border-radius: 999px;
+      border: 2px solid rgba(15,95,75,.55);
+      box-shadow: 0 0 20px rgba(15,95,75,.25), inset 0 0 14px rgba(141,108,255,.18);
+      animation: pulse 3.2s ease-in-out infinite;
+    }
+    @keyframes pulse { 50% { opacity: .52; transform: scale(.96); } }
+
+    section { padding: 110px 0; }
+    .section-head { max-width: 780px; margin-bottom: 54px; }
+    h2 { font-size: clamp(40px, 5vw, 72px); line-height: 1.02; letter-spacing: -.045em; margin-bottom: 22px; }
+    .section-head p { font-size: 19px; color: var(--muted); }
+
+    .problem { background: var(--white); }
+    .complexity-track {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-top: 30px;
+    }
+    .component {
+      min-height: 150px;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: linear-gradient(180deg, #fff, #f1f5f3);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      opacity: .46;
+      transform: translateY(12px);
+      transition: .5s ease;
+    }
+    .component strong { font-size: 15px; }
+    .component span { color: var(--muted); font-size: 13px; }
+    .component.active { opacity: 1; transform: none; border-color: rgba(15,95,75,.35); }
+
+    .solution { background: var(--ink); color: white; }
+    .solution .section-head p, .solution .muted { color: #aebbb6; }
+
+    .flow-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .flow-card {
+      min-height: 290px;
+      border-radius: 26px;
+      padding: 30px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.045);
+      position: relative;
+      overflow: hidden;
+    }
+    .flow-card::after {
+      content: "";
+      position: absolute;
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      right: -60px;
+      bottom: -70px;
+      border: 1px solid currentColor;
+      opacity: .35;
+    }
+    .flow-card:nth-child(1) { color: #e4eae7; }
+    .flow-card:nth-child(2) { color: #65b99a; }
+    .flow-card:nth-child(3) { color: #b4a1ff; }
+    .flow-card h3 { font-size: 24px; margin-bottom: 12px; }
+    .flow-card p { color: #c5ceca; }
+
+    .principles { background: #eef4f1; }
+    .principle-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+    .principle {
+      background: white;
+      padding: 28px 24px;
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      min-height: 190px;
+    }
+    .number { color: var(--green); font-weight: 800; font-size: 13px; letter-spacing: .12em; }
+    .principle h3 { font-size: 20px; margin: 38px 0 10px; }
+    .principle p { color: var(--muted); font-size: 14px; margin-bottom: 0; }
+
+    .evidence { background: white; }
+    .evidence-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 26px; }
+    .evidence-main, .evidence-list {
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 34px;
+    }
+    .evidence-main { background: linear-gradient(145deg, #0f1d19, #152b24); color: white; }
+    .evidence-main p { color: #b8c5c0; }
+    .metric { font-size: clamp(54px, 7vw, 88px); line-height: 1; font-weight: 800; letter-spacing: -.06em; color: #7fceb0; margin: 34px 0 8px; }
+    .evidence-list { display: grid; gap: 12px; background: #f8faf9; }
+    .evidence-item { display: flex; align-items: center; gap: 14px; padding: 17px 0; border-bottom: 1px solid var(--line); }
+    .evidence-item:last-child { border-bottom: 0; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 6px var(--green-soft); }
+
+    .about { background: var(--ink); color: white; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 90px; align-items: center; }
+    .quote {
+      border-left: 2px solid var(--green-bright);
+      padding-left: 26px;
+      font-size: clamp(28px, 4vw, 48px);
+      line-height: 1.12;
+      letter-spacing: -.035em;
+    }
+    .about-copy p { color: #b6c2bd; font-size: 18px; }
+
+    .closing {
+      padding: 130px 0;
       text-align: center;
-      padding: 50px;
-      background: #0f172a;
+      background:
+        radial-gradient(circle at 50% 120%, rgba(15,95,75,.25), transparent 44%),
+        #06100d;
       color: white;
     }
-    h1 { font-size: 3em; }
+    .closing h2 { max-width: 900px; margin: 0 auto 20px; }
+    .closing p { color: #a9b7b2; font-size: 19px; margin-bottom: 28px; }
+    .closing strong { color: #65b99a; }
+
+    footer { background: #06100d; color: #91a09a; border-top: 1px solid rgba(255,255,255,.08); }
+    .footer-inner { min-height: 100px; display: flex; justify-content: space-between; align-items: center; gap: 30px; font-size: 13px; }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 900px) {
+      .nav-links a:not(.button) { display: none; }
+      .hero-grid, .about-grid, .evidence-grid { grid-template-columns: 1fr; }
+      .abstract-engine { max-width: 620px; width: 100%; margin: 10px auto 0; }
+      .complexity-track, .principle-grid { grid-template-columns: 1fr 1fr; }
+      .flow-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 560px) {
+      .shell { width: min(calc(100% - 24px), var(--max)); }
+      .nav { height: 66px; }
+      .brand { font-size: 15px; letter-spacing: .12em; }
+      .nav .button { display: none; }
+      .hero { padding-top: 105px; }
+      section { padding: 78px 0; }
+      .complexity-track, .principle-grid { grid-template-columns: 1fr; }
+      .footer-inner { align-items: flex-start; flex-direction: column; padding: 30px 0; }
+    }
   </style>
 </head>
 <body>
-  <h1>Plasmoid Exhaust Systems</h1>
-  <p>High-performance exhaust solutions</p>
-  <p>Website coming soon</p>
+  <header class="site-header">
+    <div class="shell nav">
+      <a href="#top" class="brand" aria-label="Plasmex home">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>PLASMEX</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#vajra">The Vajra</a>
+        <a href="#principles">Our Standard</a>
+        <a href="#evidence">Validation</a>
+        <a href="#about">About</a>
+        <a class="button primary" href="mailto:info@plasmoidexhaustsystems.com">Start a conversation</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="shell hero-grid">
+        <div class="hero-copy reveal">
+          <div class="eyebrow">Practical marine exhaust engineering</div>
+          <h1>Engineering You Don't Have to Think About.</h1>
+          <p>Plasmex is developing marine exhaust solutions designed to reduce complexity, minimise maintenance and support cleaner engine operation.</p>
+          <div class="actions">
+            <a class="button primary" href="#vajra">Explore the Vajra</a>
+            <a class="button secondary" href="#evidence">Our validation approach</a>
+          </div>
+        </div>
+
+        <div class="abstract-engine reveal" aria-label="Abstract engine and Vajra illustration">
+          <div class="engine-block"></div>
+          <div class="engine-line"></div>
+          <div class="vajra-symbol">
+            <div class="sphere top"></div>
+            <div class="bridge"></div>
+            <div class="sphere bottom"></div>
+            <div class="flow-glow"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="problem" id="problem">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div class="eyebrow">The problem</div>
+          <h2>Marine exhaust systems have become increasingly complex.</h2>
+          <p>Modern compliance can bring more hardware, more controls and more maintenance. We believe engineering should simplify systems, not complicate them.</p>
+        </div>
+        <div class="complexity-track" aria-label="Typical exhaust system complexity">
+          <div class="component"><strong>Turbocharger</strong><span>Core engine hardware</span></div>
+          <div class="component"><strong>Oxidation catalyst</strong><span>Additional stage</span></div>
+          <div class="component"><strong>Particulate filtration</strong><span>Additional maintenance</span></div>
+          <div class="component"><strong>SCR equipment</strong><span>Injection and controls</span></div>
+          <div class="component"><strong>Sensors &amp; control</strong><span>More failure points</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="solution" id="vajra">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div class="eyebrow">The Vajra</div>
+          <h2>Designed around two continuous flow paths.</h2>
+          <p>The smaller pipework carries inlet air to the engine. The larger pipework carries exhaust away from it. Both remain separate and are shaped to create controlled swirl through the Vajra.</p>
+        </div>
+        <div class="flow-grid">
+          <article class="flow-card reveal">
+            <div class="eyebrow">01 — Inner sphere</div>
+            <h3>Sealed.</h3>
+            <p>The innermost sphere is fully enclosed. It carries no flow and remains isolated from both working paths.</p>
+          </article>
+          <article class="flow-card reveal">
+            <div class="eyebrow">02 — Middle cavity</div>
+            <h3>Inlet air path.</h3>
+            <p>Inlet air flows continuously between the inner and middle sphere walls, swirling from the smaller inlet to the smaller outlet.</p>
+          </article>
+          <article class="flow-card reveal">
+            <div class="eyebrow">03 — Outer cavity</div>
+            <h3>Exhaust path.</h3>
+            <p>Exhaust flows continuously between the middle and outer sphere walls, swirling from the larger inlet to the larger outlet.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="principles" id="principles">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div class="eyebrow">The Plasmex Standard</div>
+          <h2>Engineering should solve problems, not create them.</h2>
+        </div>
+        <div class="principle-grid">
+          <article class="principle reveal"><div class="number">01</div><h3>Solve the problem</h3><p>Every component must justify its existence.</p></article>
+          <article class="principle reveal"><div class="number">02</div><h3>Reduce complexity</h3><p>Maintenance should be designed out wherever possible.</p></article>
+          <article class="principle reveal"><div class="number">03</div><h3>Prove it</h3><p>If we cannot support a claim with evidence, we do not make it.</p></article>
+          <article class="principle reveal"><div class="number">04</div><h3>Respect the engineer</h3><p>Equipment should be straightforward to operate and service.</p></article>
+          <article class="principle reveal"><div class="number">05</div><h3>Build it properly</h3><p>Workmanship, integration and longevity are part of the product.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="evidence" id="evidence">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div class="eyebrow">Built on evidence</div>
+          <h2>Testing first. Claims second.</h2>
+          <p>Plasmex is developing and validating the Vajra through structured engineering work. This section will later hold test data, technical imagery and independent results.</p>
+        </div>
+        <div class="evidence-grid">
+          <div class="evidence-main reveal">
+            <div class="eyebrow">Development status</div>
+            <div class="metric">In progress.</div>
+            <p>We would rather show the work honestly than make promises before the evidence is ready.</p>
+          </div>
+          <div class="evidence-list reveal">
+            <div class="evidence-item"><span class="dot"></span><span>Marine integration engineering</span></div>
+            <div class="evidence-item"><span class="dot"></span><span>Flow and thermal analysis</span></div>
+            <div class="evidence-item"><span class="dot"></span><span>Fabrication development</span></div>
+            <div class="evidence-item"><span class="dot"></span><span>Independent validation planning</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <div class="shell about-grid">
+        <div class="quote reveal">“I've spent enough of my career maintaining exhaust systems. Plasmex exists to help engineers stop worrying about them.”</div>
+        <div class="about-copy reveal">
+          <div class="eyebrow">Built from experience</div>
+          <h2>Founded by a Chief Engineer.</h2>
+          <p>Plasmex grew out of years spent operating and maintaining marine machinery, dealing with increasingly complicated exhaust systems and asking whether there was a better way.</p>
+          <p>Our role is to turn licensed plasmoid technology into practical marine engineering: properly integrated, maintainable and built to last.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing">
+      <div class="shell reveal">
+        <div class="eyebrow">The outcome</div>
+        <h2>In the end, there is only one thing we want engineers to say.</h2>
+        <p><strong>“It just works.”</strong></p>
+        <a class="button primary" href="mailto:info@plasmoidexhaustsystems.com">Start a conversation</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell footer-inner">
+      <div>© 2026 Plasmex. All rights reserved.</div>
+      <div>Engineering You Don't Have to Think About.</div>
+    </div>
+  </footer>
+
+  <script>
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
+
+    const components = [...document.querySelectorAll('.component')];
+    const complexityObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        components.forEach((component, index) => {
+          setTimeout(() => component.classList.add('active'), index * 220);
+        });
+        complexityObserver.disconnect();
+      });
+    }, { threshold: .35 });
+
+    const track = document.querySelector('.complexity-track');
+    if (track) complexityObserver.observe(track);
+  </script>
 </body>
 </html>
